@@ -16,6 +16,7 @@ import com.ethanmajidi.javagame.Sprites.Brick;
 import com.ethanmajidi.javagame.Sprites.Coin;
 import com.ethanmajidi.javagame.Sprites.Enemy;
 import com.ethanmajidi.javagame.Sprites.Goomba;
+import com.ethanmajidi.javagame.Sprites.Pole;
 import com.ethanmajidi.javagame.Sprites.Turtle;
 
 /**
@@ -87,6 +88,11 @@ public class B2WorldCreator {
         for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)){
             Rectangle rect = ((RectangleMapObject) object).getRectangle();
             turtles.add(new Turtle(screen, rect.getX() / JavaGame.PPM, rect.getY() / JavaGame.PPM));
+        }
+
+        //create pole
+        for (MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+            new Pole(screen, object);
         }
 
     }

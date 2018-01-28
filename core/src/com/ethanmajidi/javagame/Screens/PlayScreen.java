@@ -172,6 +172,13 @@ public class PlayScreen  implements Screen {
             }
         }
 
+    public void checkWinGameScreen(){
+        if (player.currentState == Java.State.WON){
+            dispose();
+            game.setScreen(new WinGameScreen(game));
+        }
+    }
+
 
     public void update(float dt){
         //handle user input

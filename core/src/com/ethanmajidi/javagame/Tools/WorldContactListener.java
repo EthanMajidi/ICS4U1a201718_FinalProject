@@ -11,6 +11,7 @@ import com.ethanmajidi.javagame.JavaGame;
 import com.ethanmajidi.javagame.Sprites.Enemy;
 import com.ethanmajidi.javagame.Sprites.InteractiveTileObject;
 import com.ethanmajidi.javagame.Sprites.Java;
+import com.ethanmajidi.javagame.Sprites.Pole;
 
 import java.util.jar.JarEntry;
 
@@ -74,6 +75,16 @@ public class WorldContactListener implements ContactListener {
     }
     @Override
     public void endContact(Contact contact) {
+        Fixture fixA = contact.getFixtureA();
+        Fixture fixB = contact.getFixtureB();
+
+        int cDef = fixA.getFilterData().categoryBits | fixB.getFilterData().categoryBits;
+
+        switch (cDef) {
+            case JavaGame.PLAYER_BIT | JavaGame.POLE_BIT:
+                if (fixA.getFilterData().categoryBits == JavaGame.PLAYER_BIT)
+                    ((Pole) fixA.getUserData()).onHeadHit((Java) fixB.getUserData());
+        }
 
     }
 

@@ -22,7 +22,7 @@ import com.ethanmajidi.javagame.Screens.PlayScreen;
 
 public class Java extends Sprite {
 
-    public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD};
+    public enum State { FALLING, JUMPING, STANDING, RUNNING, GROWING, DEAD, WON};
     public State currentState;
     public State previousState;
 
@@ -33,6 +33,7 @@ public class Java extends Sprite {
     private Animation <TextureRegion> playerRun;
     private TextureRegion playerJump;
     private TextureRegion playerDead;
+    private TextureRegion playerWon;
     private TextureRegion bigPlayerStand;
     private TextureRegion bigPlayerJump;
     private Animation <TextureRegion> bigPlayerRun;
@@ -45,6 +46,7 @@ public class Java extends Sprite {
     private boolean timeToDefineBigPlayer;
     private boolean timeToRedefinePlayer;
     private boolean playerIsDead;
+    private boolean playerHasWon;
 
     public Java(PlayScreen screen){
         //initialize default values
@@ -83,6 +85,9 @@ public class Java extends Sprite {
         //create dead player texture region
         playerDead = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
 
+        //create player won texture region
+        playerWon = new TextureRegion(screen.getAtlas().findRegion("little_mario"), 96, 0, 16, 16);
+
         defineMario();
         setBounds(0, 0, 16 / JavaGame.PPM, 16 / JavaGame.PPM);
         setRegion(playerStand);
@@ -109,6 +114,9 @@ public class Java extends Sprite {
         switch(currentState){
             case DEAD:
                 region = playerDead;
+                break;
+            case WON:
+                region = playerWon;
                 break;
             case GROWING:
                 region = growPlayer.getKeyFrame(stateTimer);
@@ -146,6 +154,8 @@ public class Java extends Sprite {
     public State getState(){
         if(playerIsDead)
             return State.DEAD;
+        if(playerHasWon)
+            return State.WON;
         else if(runGrowAnimation)
             return State.GROWING;
         else if(b2body.getLinearVelocity().y > 0 || (b2body.getLinearVelocity().y < 0 && previousState == State.JUMPING))
@@ -167,6 +177,10 @@ public class Java extends Sprite {
 
     public boolean isDead() {
         return playerIsDead;
+    }
+
+    public boolean hasWon() {
+        return playerHasWon;
     }
 
     public float getStateTimer() {

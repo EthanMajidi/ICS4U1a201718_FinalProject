@@ -91,7 +91,8 @@ public class B2WorldCreator {
         }
 
         //create pole
-        for (MapObject object : map.getLayers().get(8).getObjects().getByType(RectangleMapObject.class)){
+        for(MapObject object : map.getLayers().get(7).getObjects().getByType(RectangleMapObject.class)) {
+
             new Pole(screen, object);
         }
 

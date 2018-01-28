@@ -24,7 +24,7 @@ import com.ethanmajidi.javagame.Screens.PlayScreen;
  */
 public class Pole extends InteractiveTileObject {
     private static TiledMapTileSet tileSet;
-    private final int BLANK_POLE = 8;
+    private final int BLANK_POLE = 1024;
     private boolean isActive;
 
     public Pole(PlayScreen screen, MapObject object) {
@@ -37,7 +37,7 @@ public class Pole extends InteractiveTileObject {
 
     @Override
     public void onHeadHit(Java java) {
-        Gdx.app.log("Coin", "Collision");
+        Gdx.app.log("Pole", "Collision");
         getCell().setTile(tileSet.getTile(JavaGame.POLE_BIT));
         }
     }
